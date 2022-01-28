@@ -22,7 +22,9 @@ class Clinico extends Pessoa {
     Clinico(String nome, String endereco, String numTelefone, String registro, String espec){
         super(nome, endereco, numTelefone);
         this.registro = registro;
-        this.espec = this.espec.equals(espec);
+        for(Especialidade it : Especialidade.values()){
+            if(it.getWord() == espec) this.espec = it;
+        }
     }
 
     /**
@@ -37,8 +39,8 @@ class Clinico extends Pessoa {
      * Getter do atributo espec
      * @return a especialidade médica passada para a instância do objeto
      */
-    public Especialidade getEspecialidade() {
-        return espec;
+    public String getEspecialidade() {
+        return espec.getWord();
     }
 
     /**
@@ -54,7 +56,9 @@ class Clinico extends Pessoa {
      * @param especialidade a nova especialidade a ser passada para o atributo especialidade da instância
      */
     public void setEspecialidade(String especialidade) {
-        this.espec = this.espec.equals(especialidade);
+        for(Especialidade it : Especialidade.values()){
+            if(it.getWord() == especialidade) this.espec = it;
+        }
     }
 
     /**
@@ -64,7 +68,7 @@ class Clinico extends Pessoa {
     @Override
     public String toString() {
         String str = super.toString();
-        str += "\nNúmero CRM: " + this.registro + "\nEspecialidade: " + this.espec;
+        str += "\nNúmero CRM: " + this.registro + "\nEspecialidade: " + this.espec.getWord();
         return str;
     }
 }
