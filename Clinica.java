@@ -1,40 +1,59 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-class Clinica {
-    private List<Pessoa> listPessoa;
-    private List<Prontuario> prontuarios;
-    private List<Consulta> consultas;
+public class Clinica {
+    private HashMap<String, Clinico> clinicos;
+    private HashMap<String, Paciente> pacientes;
 
-    Clinica(){
-        listPessoa = new ArrayList<Pessoa>();
-        prontuarios = new ArrayList<Prontuario>();
-        consultas = new ArrayList<Contulta>();
+    public Clinica(){
+        this.clinicos = new HashMap<>();
+        this.pacientes = new HashMap<>();
     }
 
-    public boolean addPaciente(Paciente newp){}
+    public boolean addPaciente(Paciente newp){
 
-    public boolean addClinico(Clinico newc){}
+        String new_cpf = newp.getCpf();
 
-    public boolean addConsulta(Consulta consMark){}
+        if(this.pacientes.containsKey(new_cpf)){
+            System.out.println("Paciente já cadastrado.");
+            return false;
+        }
+        this.pacientes.put(new_cpf, newp);
+        return true;
 
-    public void getPessoas(){
-        return this.listPessoa;
     }
 
-    public void getConsultas(){
-        return this.consultas;
+    public boolean addClinico(Clinico newc){
+        String new_registro = newc.getRegistro();
+
+        if(this.pacientes.containsKey(new_registro)){
+            System.out.println("Clinico já cadastrado.");
+            return false;
+        }
+        this.clinicos.put(new_registro, newc);
+        return true;
     }
 
-    public void getProntuarios(){
-        return this.prontuarios;
+    public boolean addConsulta(Consulta consMark){
+
     }
 
-    public Pessoa setPessoa(){}
+    public HashMap<String, Clinico> getClinicos() {
+        return clinicos;
+    }
 
-    public Prontuario setPront(){}
+    public HashMap<String, Paciente> getPacientes() {
+        return pacientes;
+    }
 
-    public Consulta setConsulta(){}
+    public void setClinicos(HashMap<String, Clinico> clinicos) {
+        this.clinicos = clinicos;
+    }
+
+    public void setPacientes(HashMap<String, Paciente> pacientes) {
+        this.pacientes = pacientes;
+    }
 
     public boolean cancelarConsulta(String cpfPac){}
 
