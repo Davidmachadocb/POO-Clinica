@@ -6,8 +6,8 @@ import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
-class Write{
-    public static void writerWichFile(byte id){
+class fileWrite{
+    public static void writeWichFile(byte id){
         Locale.setDefault(Locale.US);
         String filePaciente = "/home/itsfrancisco/Área de Trabalho/Pacientes.txt";
         String fileClinico = "/home/itsfrancisco/Área de Trabalho/Medicos.txt";
@@ -30,70 +30,70 @@ class Write{
             do{
                 switch(id){
                     case 1:
-                        System.out.println("Nome: ");
+                        System.out.print("Nome: ");
                         String nomePac = kb.nextLine();
 
-                        System.out.println("Endereço: ");
+                        System.out.print("Endereço: ");
                         String endPac = kb.nextLine();
 
-                        System.out.println("Telefone: ");
-                        String numeroTelefonePac = kb.nextLine();
+                        System.out.print("Telefone: ");
+                        String numeroTelefonePac = kb.next(); kb.nextLine();
 
-                        System.out.println("CPF: ");
-                        String cpf = kb.nextLine();
+                        System.out.print("CPF: ");
+                        String cpf = kb.next(); kb.nextLine();
 
-                        System.out.println("Data de nascimento (dd mm aa): ");
+                        System.out.print("Data de nascimento (dd mm aaaa): ");
                         byte dia = kb.nextByte(); byte mes = kb.nextByte(); int ano = kb.nextInt();
 
-                        System.out.println("Sexo: ");
-                        String sexo = kb.next();
+                        System.out.print("Sexo: ");
+                        String sexo = kb.next(); kb.nextLine();
 
-                        System.out.println("Naturalidade: ");
-                        String natu = kb.nextLine();
+                        System.out.print("Naturalidade: ");
+                        String natu = kb.next(); kb.nextLine();
                         
-                        outFile.printf("%s%n%s%n%s%n%s%n%d/%d/%d%n%s%n%s%n",
+                        outFile.printf("%s%n%s%n%s%n%s%n%d %d %d%n%s%n%s%n",
                         nomePac, endPac, numeroTelefonePac, cpf, dia, mes, ano, sexo, natu);
                     break;
                     case 2:
-                        System.out.println("Nome: ");
+                        System.out.print("Nome: ");
                         String nomeMed = kb.nextLine();
                         
-                        System.out.println("Endereço: ");
+                        System.out.print("Endereço: ");
                         String endMed = kb.nextLine();
                         
-                        System.out.println("Telefone: ");
-                        String numeroTelefoneMed = kb.nextLine();
+                        System.out.print("Telefone: ");
+                        String numeroTelefoneMed = kb.next(); kb.nextLine();
                         
-                        System.out.println("Registro CRM: ");
-                        String reg = kb.nextLine();
+                        System.out.print("Registro CRM: ");
+                        String reg = kb.next(); kb.nextLine();
                         
-                        System.out.println("Especialidade: ");
+                        System.out.print("Especialidade: ");
                         String spec = kb.nextLine();
 
                         outFile.printf("%s%n%s%n%s%n%s%n%s%n", nomeMed, endMed, numeroTelefoneMed, reg, spec);
                     break;
                     case 3:
-                        System.out.println("CPF do paciente: ");
-                        String cpfPacConsulta = kb.nextLine();
+                        System.out.print("CPF do paciente: ");
+                        String cpfPacConsulta = kb.next(); kb.nextLine();
                         
-                        System.out.println("Data da consulta: ");
+                        System.out.print("Data da consulta: ");
                         byte diaConsulta = kb.nextByte(); byte mesConsulta = kb.nextByte();
                         int anoConsulta = kb.nextInt();
                         
-                        System.out.println("Realizada? (s/n): ");
-                        String consultaRealizada = kb.next();
+                        System.out.print("Realizada? (s/n): ");
+                        String consultaRealizada = kb.next(); kb.nextLine();
 
-                        outFile.printf("%s%n%d/%d/%d%n%s%n",
+                        outFile.printf("%s%n%d %d %d%n%s%n",
                         cpfPacConsulta, diaConsulta, mesConsulta, anoConsulta, consultaRealizada);
                     break;
                     case 4:
-                        System.out.println("CPF do paciente: ");
-                        String cpfPront = kb.nextLine();
+                        System.out.print("CPF do paciente: ");
+                        String cpfPront = kb.next(); kb.nextLine();
                         
-                        System.out.println("Insira os sintomas: ");
+                        System.out.print("Insira os sintomas: ");
                         String sintomas = kb.nextLine();
                         
-                        System.out.println("Insira o diagnóstico: ");
+                        System.out.print("Insira o diagnóstico: ");
                         String diag = kb.nextLine();
 
                         outFile.printf("%s%n%s%n%s%n", cpfPront, sintomas, diag);
@@ -101,9 +101,10 @@ class Write{
                 }
                 
                 System.out.println("Continuar? (s/n)");
-                String option = kb.next();
-                if(option.equals("n")) break;
+                String option = kb.next(); kb.nextLine();
+                if(option.equals("n"))break;
             
+                System.out.println();
             }while(true);
             kb.close();
         }catch(InputMismatchException e){
