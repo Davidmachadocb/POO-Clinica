@@ -1,0 +1,6 @@
+Atividades:
+           David - adicionar pesquisa e ações sobre consulta
+           David - Comenta
+           David - Terminar Principal
+           Italo - Comparator em data e hora
+           Italo - terminar menu
