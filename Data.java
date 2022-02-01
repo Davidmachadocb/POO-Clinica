@@ -84,8 +84,8 @@ class Data {
      * @param dia dado do novo dia 
      */
     public void setDia(byte dia){
-        if(dataValida(this.dia, this.mes, this.ano)) this.dia = dia;
-        else System.err.println("Erro: data " + toString() + " inválida.");
+        if(dataValida(dia, this.mes, this.ano)) this.dia = dia;
+        else System.err.println("Erro: data " + toString(dia, this.mes, this.ano) + " inválida.");
     }
 
     /**
@@ -96,7 +96,7 @@ class Data {
      */
     public void setMes(byte mes){
         if(dataValida(this.dia, mes, this.ano)) this.mes = mes;
-        else System.err.println("Erro: data " + toString() + " inválida.");
+        else System.err.println("Erro: data " + toString(this.dia, mes, this.ano) + " inválida.");
     }
 
     /**
@@ -107,7 +107,7 @@ class Data {
      */
     public void setAno(int ano){
         if(dataValida(this.dia, this.mes, ano)) this.ano = ano;
-        else System.err.println("Erro: data " + toString() + " inválida.");
+        else System.err.println("Erro: data " + toString(this.dia, this.mes, ano) + " inválida.");
     }
 
     /**
@@ -135,7 +135,7 @@ class Data {
     }
 
     /**
-     * Versão sobrecarregada do toString() usada no método atualizaData para a mensagem de erro
+     * Versão sobrecarregada do toString() usada para nas mensagens de erro dos métodos de atualização
      * @param dia o dado do dia passado por parâmetro
      * @param mes o dado do mês passado por parâmetro
      * @param ano o dado do ano passado por parâmetro
