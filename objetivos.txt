@@ -4,3 +4,4 @@ Atividades:
            David - Terminar Principal
            Italo - Comparator em data e hora
            Italo - terminar menu
+           David e Italo - package
