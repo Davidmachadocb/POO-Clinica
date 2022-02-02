@@ -1,69 +1,41 @@
-public class Principal{
+public class Menu {
 
-    public static void Second_option(Clinica clinica){
-        int option_2;
-        do{
-            Menu.menu_paciente();
-            option_2 = Integer.parseInt(System.console().readLine("Opção -> "));
-            switch (option_2) {
-                case 0:
-                    break;
-                case 1:
-                    String cpf = System.console().readLine("CPF do paciente -> ");
-                    System.out.println(clinica.Pesqpaciente(cpf).toString());
-                    break;
-                case 2:
-                    break; 
-                default:
-                    System.out.println("Opção Inválida");
-                    break;
-            }
-        }while(option_2 != 0);
+    public static void menu_principal(){
+
+
+        System.out.println("\n\n         #### Clinica ####\n");
+		System.out.println("=====================================");
+		System.out.println("|     1 - Menu do Paciente          |");
+		System.out.println("|     2 - Menu do Especialista      |");
+		System.out.println("|     0 - Sair                      |");
+		System.out.println("=====================================\n"); 
     }
 
-    public static void Third_option(Clinica clinica){
-        int option_3;
-        do{
-            Menu.menu_especialista();
-            option_3 = Integer.parseInt(System.console().readLine("Opção -> "));
-            switch (option_3) {
-                case 0:
-                    break; 
-                default:
-                    System.out.println("Opção Inválida");
-                    break;
-            }
-        }while(option_3 != 0);
+
+    public static void menu_paciente(){
+
+		System.out.println("\n");
+        System.out.println("    #### Clinica - Menu Paciente ####\n");
+		System.out.println("========================================");
+		System.out.println("|     1 - Pesquisar Paciente           |");
+		System.out.println("|     2 - Marcar Consulta              |");
+		System.out.println("|     3 - Cadastrar Paciente           |");
+		System.out.println("|     4 - Remover Paciente             |");
+		System.out.println("|     0 - Voltar                       |");
+		System.out.println("========================================\n");
     }
 
-    public static void main(String[] args) {
+    public static void menu_especialista(){
 
-        Clinica clinica = new Clinica(); 
-        int option;
-        do{
-            Menu.menu_principal();
-
-            option = Integer.parseInt(System.console().readLine("Opção -> "));
-
-            switch(option){
-                case 0:
-                    System.out.println("Programa Finalizado!");
-                    break;
-
-                case 1:
-                    Second_option(clinica);
-                    break;
-            
-                case 2:
-                    Third_option(clinica);
-                    break;
-
-                default:
-                    System.out.println("Opção Inválida");
-                    break;
-            }
-
-        }while(option != 0);
-
+		System.out.println("\n");
+        System.out.println("     #### Clinica - Menu Especialista ####\n");
+		System.out.println("============================================");
+		System.out.println("|     1 - Pesquisar Especialista           |");
+		System.out.println("|     2 - Cadastrar Especialista           |");
+		System.out.println("|     3 - Remover Especialista             |");
+		System.out.println("|     4 - Consultas                        |");
+		System.out.println("|     0 - Voltar                           |");
+		System.out.println("============================================\n");
     }
+
 }
