@@ -1,14 +1,19 @@
-import java.util.List;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Clinica {
     private HashMap<String, Clinico> clinicos;
     private HashMap<String, Paciente> pacientes;
+    private HashMap<String, ArrayList<Consulta>> consultas;
+    private HashMap<String, Prontuario> prontuarios;
 
     public Clinica(){
+        
         this.clinicos = new HashMap<>();
         this.pacientes = new HashMap<>();
+        this.consultas = new HashMap<>();
+        this.prontuarios = new HashMap<>();
+
     }
 
     public boolean addPaciente(Paciente newp){
@@ -32,11 +37,33 @@ public class Clinica {
             return false;
         }
         this.clinicos.put(new_registro, newc);
+        ArrayList<Consulta> clinico_Consultas = new ArrayList<Consulta>();
+        this.consultas.put(new_registro, clinico_Consultas);
         return true;
     }
 
-    public boolean addConsulta(Consulta consMark){
+    //public boolean addConsulta(Consulta consMark){}
 
+    public Paciente Pesqpaciente(String cpf){
+
+        if(this.pacientes.containsKey(cpf)){
+            return this.pacientes.get(cpf);
+        }
+
+        System.out.println("Paciente não foi cadastrado.");
+
+        return null;
+    }
+
+    public Clinico Pesqclinico(String registro){
+
+        if(this.pacientes.containsKey(registro)){
+            return this.clinicos.get(registro);
+        }
+
+        System.out.println("Clinico não foi cadastrado.");
+
+        return null;
     }
 
     public HashMap<String, Clinico> getClinicos() {
@@ -47,6 +74,10 @@ public class Clinica {
         return pacientes;
     }
 
+    public HashMap<String, ArrayList<Consulta>> getConsultas() {
+        return consultas;
+    }
+
     public void setClinicos(HashMap<String, Clinico> clinicos) {
         this.clinicos = clinicos;
     }
@@ -55,11 +86,31 @@ public class Clinica {
         this.pacientes = pacientes;
     }
 
-    public boolean cancelarConsulta(String cpfPac){}
+    /*public boolean cancelarConsulta(String cpfPac){
 
-    public boolean delPaciente(String cpfPac){}
+    }*/
 
-    public boolean delClinico(String reg){}
+    public boolean delPaciente(String cpfPac){
+
+        if(this.pacientes.containsKey(cpfPac)){
+            this.pacientes.remove(cpfPac);
+            System.out.println("Paciente removido.");
+            return true;
+        }
+        System.out.println("Paciente não encontrado");
+        return false;
+    }
+
+    public boolean delClinico(String reg){
+
+        if(this.pacientes.containsKey(reg)){
+            this.clinicos.remove(reg);
+            System.out.println("Clinico removido.");
+            return true;
+        }
+        System.out.println("Clinico não encontrado");
+        return false;
+    }
     
-    public boolean delProntuario(String cpfPac){}
+    //public boolean delProntuario(String cpfPac){}
 }
