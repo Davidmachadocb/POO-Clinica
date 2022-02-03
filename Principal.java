@@ -2,12 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class Principal{
 
+    static Scanner kb = new Scanner(System.in);
     public static void Second_option(Clinica clinica){
 
-        Scanner kb = new Scanner(System.in);
         int option_2;
         String cpf, nome, telefone, endereço, naturalidade;
         char sex;
@@ -27,12 +28,10 @@ public class Principal{
                 
                 case 1:
                     cpf = System.console().readLine("CPF do paciente: ");
-                    if(clinica.Pesqpaciente(cpf) == null){
-                        System.out.println("Paciente não foi cadastrado.");
-                        System.console().readLine("Digite qualquer tecla pra continuar: ");
-                        break;
-                    }
-                    System.out.println(clinica.Pesqpaciente(cpf).toString());
+                    
+                    if(clinica.Pesqpaciente(cpf) == null) System.out.println("Paciente não foi cadastrado.");
+                    else System.out.println(clinica.Pesqpaciente(cpf).toString());
+                    
                     System.console().readLine("Digite qualquer tecla pra continuar: ");
                     break;
                 
@@ -105,7 +104,10 @@ public class Principal{
                 
                 case 1:
                     registro = System.console().readLine("Registro do especialista: ");
-                    System.out.println(clinica.Pesqclinico(registro).toString());
+                    
+                    if(clinica.pesqClinico(registro) == null) System.out.println("Clínico não cadastrado");
+                    else System.out.println(clinica.pesqClinico(registro).toString());
+                    
                     System.console().readLine("Digite qualquer tecla pra continuar: ");
                     break;
 
@@ -125,7 +127,7 @@ public class Principal{
 
                 case 3:
                     registro = System.console().readLine("Registro do especialista: ");
-                    clinica.delPaciente(registro);
+                    clinica.delClinico(registro);
                     System.console().readLine("Digite qualquer tecla pra continuar: ");
                     break;
 
@@ -153,7 +155,16 @@ public class Principal{
 
     public static void main(String[] args) {
 
-        Clinica clinica = new Clinica(); 
+        Clinica clinica = new Clinica();
+
+        HashMap<String, Paciente> pacientes = fileRead.readFilePaciente();
+        HashMap<String, Clinico> clinicos = fileRead.readFileClinico();
+        /*HashMap<String, ArrayList<Consulta>> consultas;
+        HashMap<String, ArrayList<Prontuario>> prontuarios;*/
+
+        clinica.setPacientes(pacientes);
+        clinica.setClinicos(clinicos);
+    
         int option;
         do{
             System.out.print("\033[H\033[2J");
@@ -184,5 +195,11 @@ public class Principal{
 
         }while(option != 0);
 
+        fileWrite.writeFilePaciente(clinica.getPacientes());
+        fileWrite.writeFileClinico(clinica.getClinicos());
+        //fileWrite.writeFileConsulta(clinica.getConsultas());
+        //fileWrite.writeFilePront(clinica.getProntuarios());
+
+        kb.close();
     }
 }
