@@ -23,7 +23,7 @@ class Clinico extends Pessoa {
         super(nome, endereco, numTelefone);
         this.registro = registro;
         for(Especialidade it : Especialidade.values()){
-            if(it.getWord() == espec) this.espec = it;
+            if(it.getWord().equalsIgnoreCase(espec)) this.espec = it;
         }
     }
 
@@ -40,7 +40,8 @@ class Clinico extends Pessoa {
      * @return a especialidade médica passada para a instância do objeto
      */
     public String getEspecialidade() {
-        return espec.getWord();
+        if(this.espec != null) return espec.getWord();
+        else return "";
     }
 
     /**
@@ -62,7 +63,7 @@ class Clinico extends Pessoa {
     }
 
     /**
-     * Método que sobrepõe o toString() da superclasse. Fornece os dados da instância de forma organizada
+     * Método que sobrepõe o toString() da superclasse. Fornece os dados formatados da instância de forma organizada
      * @return Uma string com os dados organizados da instância
      */
     @Override
