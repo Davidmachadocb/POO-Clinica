@@ -54,16 +54,14 @@ public class Clinica {
         if(this.pacientes.containsKey(cpf)){
             return this.pacientes.get(cpf);
         }
-
         return null;
     }
 
-    public Clinico Pesqclinico(String registro){
+    public Clinico pesqClinico(String registro){
 
         if(this.clinicos.containsKey(registro)){
             return this.clinicos.get(registro);
         }
-
         return null;
     }
 
@@ -104,7 +102,7 @@ public class Clinica {
 
     public boolean delClinico(String reg){
 
-        if(this.pacientes.containsKey(reg)){
+        if(this.clinicos.containsKey(reg)){
             this.clinicos.remove(reg);
             System.out.println("Clinico removido.");
             return true;
