@@ -1,8 +1,14 @@
-public class Prontuario {
+public class Prontuario{
     
     private String cpf;
     private String sintomas;
     private String diagnostico;
+
+    Prontuario(String cpf, String sintomas, String diagnostico){
+        this.cpf = cpf;
+        this.sintomas = sintomas;
+        this.diagnostico = diagnostico;
+    }
 
     public String getCpf() {
         return cpf;
