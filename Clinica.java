@@ -46,6 +46,10 @@ public class Clinica {
 
         String reg = consMark.getCrmDoc();
 
+        if(!(this.consultas.containsKey(reg))){
+            this.consultas.put(reg, new ArrayList<Consulta>());
+        }
+
         ArrayList<Consulta> med_consultas = this.consultas.get(reg);
 
         for(Consulta aux : med_consultas){
@@ -140,5 +144,27 @@ public class Clinica {
         return false;
     }
     
-    //public boolean delProntuario(String cpfPac){}
+    public boolean addProntuario(Prontuario p){
+
+        String cpf = p.getCpf();
+
+        if(!(this.consultas.containsKey(cpf))){
+            this.consultas.put(cpf, new ArrayList<Consulta>());
+        }
+
+        this.prontuarios.get(cpf).add(p);
+
+        return true;
+    }
+
+    public boolean delProntuario(String cpfPac){
+        
+        if(this.prontuarios.containsKey(cpfPac)){
+            this.prontuarios.remove(cpfPac);
+            return true;
+        }
+
+        System.out.println("Prontuario não encontrado");
+        return false;
+    }
 }
