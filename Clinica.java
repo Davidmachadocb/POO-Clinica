@@ -1,4 +1,10 @@
 import java.util.HashMap;
+
+import Documentos.Consulta;
+import Documentos.Prontuario;
+import Pessoas.Clinico;
+import Pessoas.Paciente;
+
 import java.util.ArrayList;
 
 public class Clinica {
@@ -100,12 +106,24 @@ public class Clinica {
         return consultas;
     }
 
+    public HashMap<String, ArrayList<Prontuario>> getProntuarios() {
+        return prontuarios;
+    }
+
     public void setClinicos(HashMap<String, Clinico> clinicos) {
         this.clinicos = clinicos;
     }
 
     public void setPacientes(HashMap<String, Paciente> pacientes) {
         this.pacientes = pacientes;
+    }
+
+    public void setConsultas(HashMap<String, ArrayList<Consulta>> consultas) {
+        this.consultas = consultas;
+    }
+
+    public void setProntuarios(HashMap<String, ArrayList<Prontuario>> prontuarios) {
+        this.prontuarios = prontuarios;
     }
 
     public boolean cancelarConsulta(String cpfPac, String reg_esp){
