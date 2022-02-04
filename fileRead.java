@@ -37,6 +37,7 @@ class fileRead {
         }catch(IOException e) {
             System.err.println("Exceção de E/S");
         }
+        file.delete();
         return mapping;
     }
 
@@ -66,27 +67,29 @@ class fileRead {
         }catch(IOException e) {
             System.err.println("Exceção de E/S");
         }
-
+        file.delete();
         return mapping;
     }
 
-    /*public static HashMap<String, ArrayList<Consulta>> readFileConsulta(){
+    public static HashMap<String, ArrayList<Consulta>> readFileConsulta(){
         Locale.setDefault(Locale.US);
         String fileConsulta = "/home/itsfrancisco/Área de Trabalho/Consultas.txt";
         File file = new File(fileConsulta);
 
-        HashMap<String, Consulta> mapping = new HashMap<>();
+        HashMap<String, ArrayList<Consulta>> mapping = new HashMap<>();
+        ArrayList<Consulta> aux = new ArrayList<>();
         try(Scanner inFile = new Scanner(file, StandardCharsets.UTF_8);){
             while(inFile.hasNext()){
                 while(inFile.hasNext()){
-                    String name = inFile.nextLine();
-                    String endereco = inFile.nextLine();
-                    String numeroTel = inFile.nextLine();
-                    String reg = inFile.nextLine();
-                    String spec = inFile.nextLine();
+                    String cpf = inFile.nextLine();
+                    byte dia = inFile.nextByte(); byte mes = inFile.nextByte(); int ano = inFile.nextInt(); 
+                    byte hora = inFile.nextByte(); byte min = inFile.nextByte();
+                    Boolean b = inFile.nextBoolean();
+                    String medResp = inFile.nextLine();
                 
-                    Clinico c = new Clinico(name, endereco, numeroTel, reg, spec);
-                    
+                    Consulta con = new Consulta(cpf, new Data(dia, mes, ano), new Hora(hora, min), b, medResp);
+                    aux.add(con);
+                    mapping.put(cpf, aux);
                 }
             }   
         }catch(InputMismatchException e) {
@@ -96,11 +99,11 @@ class fileRead {
         }catch(IOException e) {
             System.err.println("Exceção de E/S");
         }
-
+        file.delete();
         return mapping;
     }
 
-    public static HashMap<String, ArrayList<Prontuario>> readFileProntuario(){
+    /*public static HashMap<String, ArrayList<Prontuario>> readFileProntuario(){
         Locale.setDefault(Locale.US);
         String fileProntuario = "/home/itsfrancisco/Área de Trabalho/Prontuarios.txt";
         File file = new File(fileProntuario);
@@ -124,7 +127,7 @@ class fileRead {
         }catch(IOException e) {
             System.err.println("Exceção de E/S");
         }
-
+        file.delete();
         return mapping;
     }*/    
 }
