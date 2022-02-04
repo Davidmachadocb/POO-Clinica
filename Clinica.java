@@ -1,10 +1,4 @@
 import java.util.HashMap;
-
-import Documentos.Consulta;
-import Documentos.Prontuario;
-import Pessoas.Clinico;
-import Pessoas.Paciente;
-
 import java.util.ArrayList;
 
 public class Clinica {
@@ -51,6 +45,12 @@ public class Clinica {
     public boolean addConsulta(Consulta consMark){
 
         String reg = consMark.getCrmDoc();
+
+        if(reg == null){
+            System.out.println("Médico não encontrado. Operação falhou.");
+            System.console().readLine("Digite qualquer tecla pra continuar: ");
+            return false;
+        }
 
         if(!(this.consultas.containsKey(reg))){
             this.consultas.put(reg, new ArrayList<Consulta>());
@@ -128,15 +128,16 @@ public class Clinica {
 
     public boolean cancelarConsulta(String cpfPac, String reg_esp){
         ArrayList<Consulta> esp_consulta = this.consultas.get(reg_esp);
-
+        if(esp_consulta == null) return false;
+        
         for(Consulta aux : esp_consulta){
-            if(aux.getCpf_paciente() == cpfPac){
+            System.out.println(aux.getCpf_paciente());
+            if(aux.getCpf_paciente().equals(cpfPac)){
                 this.consultas.get(reg_esp).remove(aux);
                 return true;
             }
         }
 
-        System.out.println("Consullta não encontrada");
         return false;
     }
 
