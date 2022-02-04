@@ -49,16 +49,14 @@ class fileRead {
         HashMap<String, Clinico> mapping = new HashMap<>();
         try(Scanner inFile = new Scanner(file, StandardCharsets.UTF_8);){
             while(inFile.hasNext()){
-                while(inFile.hasNext()){
-                    String name = inFile.nextLine();
-                    String endereco = inFile.nextLine();
-                    String numeroTel = inFile.nextLine();
-                    String reg = inFile.nextLine();
-                    String spec = inFile.nextLine();
-                
-                    Clinico c = new Clinico(name, endereco, numeroTel, reg, spec);
-                    mapping.put(reg, c);
-                }
+                String name = inFile.nextLine();
+                String endereco = inFile.nextLine();
+                String numeroTel = inFile.nextLine();
+                String reg = inFile.nextLine();
+                String spec = inFile.nextLine();
+            
+                Clinico c = new Clinico(name, endereco, numeroTel, reg, spec);
+                mapping.put(reg, c);
             }   
         }catch(InputMismatchException e) {
             System.out.println("Entrada inválida.");
@@ -80,17 +78,15 @@ class fileRead {
         ArrayList<Consulta> aux = new ArrayList<>();
         try(Scanner inFile = new Scanner(file, StandardCharsets.UTF_8);){
             while(inFile.hasNext()){
-                while(inFile.hasNext()){
-                    String cpf = inFile.nextLine();
-                    byte dia = inFile.nextByte(); byte mes = inFile.nextByte(); int ano = inFile.nextInt(); 
-                    byte hora = inFile.nextByte(); byte min = inFile.nextByte();
-                    Boolean b = inFile.nextBoolean();
-                    String medResp = inFile.nextLine();
-                
-                    Consulta con = new Consulta(cpf, new Data(dia, mes, ano), new Hora(hora, min), b, medResp);
-                    aux.add(con);
-                    mapping.put(cpf, aux);
-                }
+                String cpf = inFile.nextLine();
+                byte dia = inFile.nextByte(); byte mes = inFile.nextByte(); int ano = inFile.nextInt(); 
+                byte hora = inFile.nextByte(); byte min = inFile.nextByte();
+                Boolean b = inFile.nextBoolean();
+                String medResp = inFile.nextLine();
+            
+                Consulta con = new Consulta(cpf, new Data(dia, mes, ano), new Hora(hora, min), b, medResp);
+                aux.add(con);
+                mapping.put(cpf, aux); 
             }   
         }catch(InputMismatchException e) {
             System.out.println("Entrada inválida.");
@@ -103,22 +99,23 @@ class fileRead {
         return mapping;
     }
 
-    /*public static HashMap<String, ArrayList<Prontuario>> readFileProntuario(){
+    public static HashMap<String, ArrayList<Prontuario>> readFileProntuario(){
         Locale.setDefault(Locale.US);
         String fileProntuario = "/home/itsfrancisco/Área de Trabalho/Prontuarios.txt";
         File file = new File(fileProntuario);
 
         HashMap<String, ArrayList<Prontuario>> mapping = new HashMap<>();
+        ArrayList<Prontuario> aux = new ArrayList<>();
         try(Scanner inFile = new Scanner(file, StandardCharsets.UTF_8);){
             while(inFile.hasNext()){
-                while(inFile.hasNext()){
-                    String cpfPacPront = inFile.nextLine();
-                    String sintomas = inFile.nextLine();
-                    String diag = inFile.nextLine();
+                String cpfPacPront = inFile.nextLine();
+                String sintomas = inFile.nextLine();
+                String diag = inFile.nextLine();
+            
+                Prontuario pront = new Prontuario(cpfPacPront, sintomas, diag);
+                aux.add(pront);
                 
-                    Prontuario pront = new Prontuario(cpfPacPront, sintomas, diag);
-                    mapping.put(cpfPacPront, pront);
-                }
+                mapping.put(cpfPacPront, aux);
             }   
         }catch(InputMismatchException e) {
             System.out.println("Entrada inválida.");
@@ -129,5 +126,5 @@ class fileRead {
         }
         file.delete();
         return mapping;
-    }*/    
+    }
 }
