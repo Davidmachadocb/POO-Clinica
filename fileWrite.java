@@ -70,35 +70,32 @@ class fileWrite{
         }   
     }
 
-    /*public static void writeFileConsulta(HashMap<String, ArrayList<Consulta>> consultas){
+    public static void writeFileConsulta(HashMap<String, ArrayList<Consulta>> consultas){
         Locale.setDefault(Locale.US);
         String fileConsulta = "/home/itsfrancisco/Área de Trabalho/Consultas.txt";
 
         try(FileWriter fstream = new FileWriter(fileConsulta, StandardCharsets.UTF_8, true);
             PrintWriter outFile = new PrintWriter(fstream, true);)
         {
-            Scanner kb = new Scanner(System.in);
-            do{
-                System.out.print("CPF do paciente: ");
-                String cpfPacConsulta = kb.next(); kb.nextLine();
-                
-                System.out.print("Data da consulta: ");
-                byte diaConsulta = kb.nextByte(); byte mesConsulta = kb.nextByte();
-                int anoConsulta = kb.nextInt();
-                
-                System.out.print("Realizada? (s/n): ");
-                String consultaRealizada = kb.next(); kb.nextLine();
-
-                outFile.printf("%s%n%d %d %d%n%s%n",
-                cpfPacConsulta, diaConsulta, mesConsulta, anoConsulta, consultaRealizada);
+            for(String key : consultas.keySet()){
+                for(int i = 0; i < consultas.get(key).size(); i++){
+                    String cpfPacConsulta = consultas.get(key).get(i).getCpf_paciente();
                     
-                System.out.println("Continuar? (s/n)");
-                String option = kb.next(); kb.nextLine();
-                if(option.equals("n"))break;
-                
-                System.out.println();
-            }while(true);
-            kb.close();
+                    byte diaConsulta = consultas.get(key).get(i).getDataOcur().getDia();
+                    byte mesConsulta = consultas.get(key).get(i).getDataOcur().getMes();
+                    int anoConsulta = consultas.get(key).get(i).getDataOcur().getAno();
+                    
+                    Boolean f = consultas.get(key).get(i).getrealizada();
+                    String consultaRealizada = "";
+                    if(f) consultaRealizada = "Sim";
+                    else consultaRealizada = "Não";
+
+                    String crmDoc = consultas.get(key).get(i).getCrmDoc();
+    
+                    outFile.printf("%s%n%d %d %d%n%s%n%s%n",
+                    cpfPacConsulta, diaConsulta, mesConsulta, anoConsulta, consultaRealizada, crmDoc);
+                }
+            }
         }catch(InputMismatchException e){
             System.err.println("Entrada inválida: " + e.getMessage());
         }catch(IOException e){
@@ -106,37 +103,28 @@ class fileWrite{
         }
     }
 
-    public static void writeFilePront(HashMap<String, ArrayList<Prontuario>> prontuarios){
+   public static void writeFilePront(HashMap<String, ArrayList<Prontuario>> prontuarios){
         Locale.setDefault(Locale.US);
         String fileProntuario = "/home/itsfrancisco/Área de Trabalho/Prontuarios.txt";
 
         try(FileWriter fstream = new FileWriter(fileProntuario, StandardCharsets.UTF_8, true);
             PrintWriter outFile = new PrintWriter(fstream, true);)
         {
-            Scanner kb = new Scanner(System.in);
-            do{
-                System.out.print("CPF do paciente: ");
-                String cpfPront = kb.next(); kb.nextLine();
-                
-                System.out.print("Insira os sintomas: ");
-                String sintomas = kb.nextLine();
-                
-                System.out.print("Insira o diagnóstico: ");
-                String diag = kb.nextLine();
-            
-                outFile.printf("%s%n%s%n%s%n", cpfPront, sintomas, diag);
+            for(String key : prontuarios.keySet()){
+                for(int i = 0; i < prontuarios.get(key).size(); i++){
+                    String cpfPront = prontuarios.get(key).get(i).getCpf();
                     
-                System.out.println("Continuar? (s/n)");
-                String option = kb.next(); kb.nextLine();
-                if(option.equals("n"))break;
-                
-                System.out.println();
-            }while(true);
-            kb.close();
+                    String sintomas = prontuarios.get(key).get(i).getSintomas();
+                    
+                    String diag = prontuarios.get(key).get(i).getDiagnostico();
+    
+                    outFile.printf("%s%n%s%n%s%n", cpfPront, sintomas, diag);
+                }
+            }
         }catch(InputMismatchException e){
             System.err.println("Entrada inválida: " + e.getMessage());
         }catch(IOException e){
             System.out.println("Um erro foi detectado ao tentar abrir o arquivo: " + e.getMessage());
         }
-    }*/
+    }
 }
