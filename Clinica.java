@@ -44,7 +44,26 @@ public class Clinica {
 
     public boolean addConsulta(Consulta consMark){
 
-        this.consultas.get(consMark.getCrmDoc()).add(consMark);
+        String reg = consMark.getCrmDoc();
+
+        ArrayList<Consulta> med_consultas = this.consultas.get(reg);
+
+        for(Consulta aux : med_consultas){
+            if(Integer.compare(consMark.getDataOcur().getAno(), aux.getDataOcur().getAno()) == 0){
+                if(Integer.compare(consMark.getDataOcur().getMes(), aux.getDataOcur().getMes()) == 0){
+                    if(Integer.compare(consMark.getDataOcur().getDia(), aux.getDataOcur().getDia()) == 0){
+                        if(Integer.compare(consMark.getHoraCon().getHora(), aux.getHoraCon().getHora()) == 0 && 
+                        Integer.compare(consMark.getHoraCon().getMin(), aux.getHoraCon().getMin()) == 0){
+                            System.out.println("Horario já reservado!");
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        this.consultas.get(reg).add(consMark);
+
         return true;
 
     }
@@ -85,9 +104,19 @@ public class Clinica {
         this.pacientes = pacientes;
     }
 
-    /*public boolean cancelarConsulta(String cpfPac){
+    public boolean cancelarConsulta(String cpfPac, String reg_esp){
+        ArrayList<Consulta> esp_consulta = this.consultas.get(reg_esp);
 
-    }*/
+        for(Consulta aux : esp_consulta){
+            if(aux.getCpf_paciente() == cpfPac){
+                this.consultas.get(reg_esp).remove(aux);
+                return true;
+            }
+        }
+
+        System.out.println("Consullta não encontrada");
+        return false;
+    }
 
     public boolean delPaciente(String cpfPac){
 
