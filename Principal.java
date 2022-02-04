@@ -16,8 +16,8 @@ public class Principal{
         if(str.isEmpty()) return false;
         var aux = str.toCharArray();
         for(int i = 0; i < str.length(); i++){
-            if(!(aux[i] == '1' || aux[i] == '2' || aux[i] == '3' || aux[i] == '4' || aux[i] == '5' ||
-               aux[i] == '6' || aux[i] == '7' || aux[i] == '8' || aux[i] == '9')){System.out.println("a");return false;}
+            if(!(aux[i] == '0' ||  aux[i] == '1' || aux[i] == '2' || aux[i] == '3' || aux[i] == '4' ||
+            aux[i] == '5' || aux[i] == '6' || aux[i] == '7' || aux[i] == '8' || aux[i] == '9')) return false;
         }
         return true;
     }
@@ -183,7 +183,38 @@ public class Principal{
                     }while(repeat);
                     System.console().readLine("Digite qualquer tecla pra continuar: ");
                     System.out.print("\033[H\033[2J");
-                    break;
+                break;
+                case 5:
+                    repeat = true;
+                    do{
+                        try{
+                            cpf = System.console().readLine("CPF do paciente: ");
+                            if(!validLength(cpf)){
+                                System.out.println("Tamanho inválido. Tente novamente.");
+                                continue;
+                            }
+                            if(!onlyNumbers(cpf)){
+                                System.out.println("Entrada inválida. Tente novamente.");
+                                continue;
+                            }
+                            String crmResp = System.console().readLine("CRM do médico responsável: ");
+                            if(crmResp.length() > 8){
+                                System.out.println("Tamanho inválido. Tente novamente.");
+                                continue;
+                            }
+                            if(!clinica.cancelarConsulta(cpf, crmResp)) System.out.println("Paciente não foi cadastrado.");
+                            else System.out.println(clinica.cancelarConsulta(cpf, crmResp));
+
+                            repeat = false;
+                        }catch(InputMismatchException ime){
+                            System.err.printf("%nExceção: %s%n", ime);
+                            System.out.println("Você escreveu um dígito incompatível com o tipo pedido. Por favor, tente novamente.");
+                            System.out.println();
+                            System.console().readLine("Digite qualquer tecla pra continuar: ");
+                        }
+                    }while(repeat);
+                    System.console().readLine("Digite qualquer tecla pra continuar: ");
+                break;
                 default:
                     System.out.println("Opção Inválida");
                     break;
@@ -300,6 +331,12 @@ public class Principal{
 
                             List<Consulta> consulta = new ArrayList<>(); 
                             consulta = clinica.getConsultas().get(crmResp);
+                            
+                            if(consulta == null){
+                                System.out.println("Não há consultas agendadas para esse médico.");
+                                repeat_2 = false;
+                                continue;
+                            }
 
                             Collections.sort(consulta);
 
@@ -331,12 +368,13 @@ public class Principal{
         HashMap<String, Paciente> pacientes = fileRead.readFilePaciente();
         HashMap<String, Clinico> clinicos = fileRead.readFileClinico();
         HashMap<String, ArrayList<Consulta>> consultas = fileRead.readFileConsulta();
-        //HashMap<String, ArrayList<Prontuario>> prontuarios;
+        HashMap<String, ArrayList<Prontuario>> prontuarios = fileRead.readFileProntuario();
 
         clinica.setPacientes(pacientes);
         clinica.setClinicos(clinicos);
         clinica.setConsultas(consultas);
-    
+        clinica.setProntuarios(prontuarios);
+
         int option;
         do{
             System.out.print("\033[H\033[2J");
@@ -369,8 +407,8 @@ public class Principal{
 
         fileWrite.writeFilePaciente(clinica.getPacientes());
         fileWrite.writeFileClinico(clinica.getClinicos());
-        //fileWrite.writeFileConsulta(clinica.getConsultas());
-        //fileWrite.writeFilePront(clinica.getProntuarios());
+        fileWrite.writeFileConsulta(clinica.getConsultas());
+        fileWrite.writeFilePront(clinica.getProntuarios());
 
         kb.close();
     }
