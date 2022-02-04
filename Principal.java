@@ -4,12 +4,22 @@ import java.util.Scanner;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.lang.NumberFormatException;
 
 public class Principal{
 
     private static boolean validLength(String str){
         if(str.length() == 11) return true;
         return false;
+    }
+    private static boolean onlyNumbers(String str){
+        if(str.isEmpty()) return false;
+        var aux = str.toCharArray();
+        for(int i = 0; i < str.length(); i++){
+            if(!(aux[i] == '1' || aux[i] == '2' || aux[i] == '3' || aux[i] == '4' || aux[i] == '5' ||
+               aux[i] == '6' || aux[i] == '7' || aux[i] == '8' || aux[i] == '9')){System.out.println("a");return false;}
+        }
+        return true;
     }
 
     static Scanner kb = new Scanner(System.in);
@@ -42,6 +52,10 @@ public class Principal{
                                 System.out.println("Tamanho inválido. Tente novamente.");
                                 continue;
                             }
+                            if(!onlyNumbers(cpf)){
+                                System.out.println("Entrada inválida. Tente novamente.");
+                                continue;
+                            }
 
                             if(clinica.Pesqpaciente(cpf) == null) System.out.println("Paciente não foi cadastrado.");
                             else System.out.println(clinica.Pesqpaciente(cpf).toString());
@@ -49,9 +63,9 @@ public class Principal{
                             repeat = false;
                         }catch(InputMismatchException ime){
                             System.err.printf("%nExceção: %s%n", ime);
-                            System.console().readLine();
                             System.out.println("Você escreveu um dígito incompatível com o tipo pedido. Por favor, tente novamente.");
                             System.out.println();
+                            System.console().readLine("Digite qualquer tecla pra continuar: ");
                         }
                     }while(repeat);
                     System.console().readLine("Digite qualquer tecla pra continuar: ");
@@ -66,12 +80,16 @@ public class Principal{
                             System.out.println("Tamanho inválido. Tente novamente.");
                             continue;
                         }
+                        if(!onlyNumbers(cpfPac)){
+                            System.out.println("Entrada inválida. Tente novamente.");
+                            continue;
+                        }
     
                         System.out.print("Data para consulta (dd mm aaaa): ");
                         dia = kb.nextByte(); mes = kb.nextByte(); ano = kb.nextShort();
     
                         System.out.print("Horário para consulta: ");
-                        byte hora = kb.nextByte(); byte min = kb.nextByte();
+                        byte hora = kb.nextByte(); byte min = kb.nextByte(); kb.nextLine();
     
                         System.out.print("Médico responsável: ");
                         String crmDoc = kb.nextLine();
@@ -83,9 +101,14 @@ public class Principal{
                         repeat = false;
                     }catch(InputMismatchException ime){
                         System.err.printf("%nExceção: %s%n", ime);
-                        System.console().readLine();
                         System.out.println("Você escreveu um dígito incompatível com o tipo pedido. Por favor, tente novamente.");
                         System.out.println();
+                        System.console().readLine("Digite qualquer tecla pra continuar: ");
+                    }catch(NumberFormatException nfe){
+                        System.err.printf("%nExceção: %s%n", nfe);
+                        System.out.println("Dígito inválido. Por favor, tente novamente.");
+                        System.out.println();
+                        System.console().readLine("Digite qualquer tecla pra continuar: ");
                     }
                 }while(repeat);
 				break;
@@ -99,6 +122,10 @@ public class Principal{
                                 System.out.println("Tamanho inválido. Tente novamente.");
                                 continue;
                             }
+                            if(!onlyNumbers(cpf)){
+                                System.out.println("Entrada inválida. Tente novamente.");
+                                continue;
+                            }
                             dia = Byte.parseByte(System.console().readLine("Dia de nascimento: "));
                             mes = Byte.parseByte(System.console().readLine("mês de nascimento: "));
                             ano = Short.parseShort(System.console().readLine("Ano de nascimento: "));
@@ -109,6 +136,9 @@ public class Principal{
                             if(!validLength(telefone)){
                                 System.out.println("Tamanho inválido. Tente novamente.");
                                 continue;
+                            }if(!onlyNumbers(telefone)){
+                                System.out.println("Entrada inválida. Tente novamente.");
+                                continue;
                             }
                             naturalidade = System.console().readLine("Naturalidade: ");
 
@@ -118,9 +148,14 @@ public class Principal{
                             repeat = false;
                         }catch(InputMismatchException ime){
                             System.err.printf("%nExceção: %s%n", ime);
-                            System.console().readLine();
                             System.out.println("Você escreveu um dígito incompatível com o tipo pedido. Por favor, tente novamente.");
                             System.out.println();
+                            System.console().readLine("Digite qualquer tecla pra continuar: ");
+                        }catch(NumberFormatException nfe){
+                            System.err.printf("%nExceção: %s%n", nfe);
+                            System.out.println("Dígito inválido. Por favor, tente novamente.");
+                            System.out.println();
+                            System.console().readLine("Digite qualquer tecla pra continuar: ");
                         }
                     }while(repeat);
                 break;
@@ -133,14 +168,17 @@ public class Principal{
                                 System.out.println("Tamanho inválido. Tente novamente.");
                                 continue;
                             }
-        
+                            if(!onlyNumbers(cpf)){
+                                System.out.println("Entrada inválida. Tente novamente.");
+                                continue;
+                            }
                             clinica.delPaciente(cpf);
                             repeat = false;
                         }catch(InputMismatchException ime){
                             System.err.printf("%nExceção: %s%n", ime);
-                            System.console().readLine();
                             System.out.println("Você escreveu um dígito incompatível com o tipo pedido. Por favor, tente novamente.");
                             System.out.println();
+                            System.console().readLine("Digite qualquer tecla pra continuar: ");
                         }
                     }while(repeat);
                     System.console().readLine("Digite qualquer tecla pra continuar: ");
@@ -183,9 +221,9 @@ public class Principal{
                             repeat_2 = false;
                         }catch(InputMismatchException ime){
                             System.err.printf("%nExceção: %s%n", ime);
-                            System.console().readLine();
                             System.out.println("Você escreveu um dígito incompatível com o tipo pedido. Por favor, tente novamente.");
                             System.out.println();    
+                            System.console().readLine("Digite qualquer tecla pra continuar: ");
                         }
                     }while(repeat_2);
                     System.console().readLine("Digite qualquer tecla pra continuar: ");
@@ -206,6 +244,10 @@ public class Principal{
                                 System.out.println("Tamanho inválido. Tente novamente.");
                                 continue;
                             }
+                            if(!onlyNumbers(telefone)){
+                                System.out.println("Entrada inválida. Tente novamente.");
+                                continue;
+                            }
                             espec = System.console().readLine("Especialidade: ");
 
                             Clinico newc = new Clinico(nome, endereço, telefone, registro, espec);
@@ -214,9 +256,14 @@ public class Principal{
                             repeat_2 = false;
                         }catch(InputMismatchException ime){
                             System.err.printf("%nExceção: %s%n", ime);
-                            System.console().readLine();
                             System.out.println("Você escreveu um dígito incompatível com o tipo pedido. Por favor, tente novamente.");
                             System.out.println();    
+                            System.console().readLine("Digite qualquer tecla pra continuar: ");
+                        }catch(NumberFormatException nfe){
+                            System.err.printf("%nExceção: %s%n", nfe);
+                            System.out.println("Dígito inválido. Por favor, tente novamente.");
+                            System.out.println();
+                            System.console().readLine("Digite qualquer tecla pra continuar: ");
                         }
                     }while(repeat_2);
                 break;
@@ -234,9 +281,9 @@ public class Principal{
                             repeat_2 = false;
                         }catch(InputMismatchException ime){
                             System.err.printf("%nExceção: %s%n", ime);
-                            System.console().readLine();
                             System.out.println("Você escreveu um dígito incompatível com o tipo pedido. Por favor, tente novamente.");
                             System.out.println();    
+                            System.console().readLine("Digite qualquer tecla pra continuar: ");
                         }
                     }while(repeat_2);
                     System.console().readLine("Digite qualquer tecla pra continuar: ");
@@ -264,9 +311,9 @@ public class Principal{
                             repeat_2 = false;
                         }catch(InputMismatchException ime){
                             System.err.printf("%nExceção: %s%n", ime);
-                            System.console().readLine();
                             System.out.println("Você escreveu um dígito incompatível com o tipo pedido. Por favor, tente novamente.");
                             System.out.println();    
+                            System.console().readLine("Digite qualquer tecla pra continuar: ");
                         }
                     }while(repeat_2);
                 break;
